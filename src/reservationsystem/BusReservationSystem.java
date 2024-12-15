@@ -57,11 +57,16 @@ public class BusReservationSystem {
 	            else if(userOpt == 3) {
 	            	System.out.println("Enter the bus_no");
 	            	int bus_no=sc.nextInt();
+	            	if(busRented(buses,bus_no)) 
+	            	{
 	            	for(Bus bus:buses) {
 	            		if(bus.getBus_No()==bus_no) {
 	            			bus.setBusAvailable(true);
 	            			System.out.println("Return Successfully");
 	            		}
+	            	}
+	            	}else {
+	            		System.out.println("Invalid Bus no.....");
 	            	}
 	            }
 	            else if (userOpt == 4) {
@@ -74,6 +79,15 @@ public class BusReservationSystem {
 
 	        sc.close();
 	    }
+	 public static boolean busRented(ArrayList<Bus> buses,int bus_no) {
+		 for(Bus bus:buses) {
+			 if(bus.getBus_No()==bus_no) {
+				 if(!bus.isBusAvailable())
+					 return true;
+			 }
+		 }
+		 return false;
+	 }
 	 public static long calculateDays(Date startDate, Date endDate) {
 	        long difference = endDate.getTime() - startDate.getTime();
 	        return difference / (1000 * 60 * 60 * 24) + 1;
